@@ -21,13 +21,26 @@ class Palette extends Component {
     ));
     return (
       <div className="Palette">
-        <Slider
-          defaultValue={level}
-          min={100}
-          max={900}
-          step={100}
-          onAfterChange={this.changeLevel}
-        />
+        <div className="slider">
+          <Slider
+            defaultValue={level}
+            min={100}
+            max={900}
+            onAfterChange={this.changeLevel}
+            step={100}
+            trackStyle={{ backgroundColor: "transparent" }}
+            handleStyle={{
+              borderColor: "green",
+              height: 13,
+              width: 13,
+              marginLeft: -7,
+              marginTop: -3,
+              backgroundColor: "green",
+              boxShadow: "none",
+            }}
+            railStyle={{ heigh: 8 }}
+          />
+        </div>
         {/* navbar goes here */}
         <div className="Palette-colors">{colorBoxes}</div>
         {/* footer */}
