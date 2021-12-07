@@ -5,14 +5,26 @@ import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelper";
 // import { Switch } from "@mui/material";
 class App extends Component {
+  findPalette(id) {
+    seedColors.find(function (palette) {
+      return palette.id == id;
+    });
+  }
   render() {
     return (
       <Routes>
-        <Route path="/welcome" element={<h1>Main page</h1>} />
+        <Route path="/welcome" element={<h1>MainPage </h1>} />
+        {/*need help change to JSX */}
         <Route
           exact
           path="/palette/:id"
-          element={<h1>Individual palletes</h1>}
+          render={(routeProps) => (
+            <Palette
+              palette={generatePalette(
+                this.findPalette[routeProps.match.params.id]
+              )}
+            />
+          )}
         />
       </Routes>
       // <div>
