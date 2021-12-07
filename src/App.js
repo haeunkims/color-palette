@@ -6,7 +6,7 @@ import { generatePalette } from "./colorHelper";
 // import { Switch } from "@mui/material";
 class App extends Component {
   findPalette(id) {
-    seedColors.find(function (palette) {
+    return seedColors.find(function (palette) {
       return palette.id == id;
     });
   }
