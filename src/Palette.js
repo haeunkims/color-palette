@@ -1,33 +1,49 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
+import { useParams } from "react-router-dom";
+import seedColors from "./seedColors";
+import { generatePalette } from "./colorHelper";
 import "./Palette.css";
 
-class Palette extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { level: 500, format: "hex" };
-    this.changeLevel = this.changeLevel.bind(this);
-    this.changeFormat = this.changeFormat.bind(this);
+const Palette = () => {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { level: 500, format: "hex" };
+  //   this.changeLevel = this.changeLevel.bind(this);
+  //   this.changeFormat = this.changeFormat.bind(this);
+  // }
+
+  const [level, setLevel] = useState(500)
+  const [format, setFormat] = useState("hex")
+  const { id } = useParams()
+  // useEffect(() => {
+
+  // })
+  
+  const findPalette = () => {
+    return seedColors.find(function (palette) {
+      return palette.id == id;
+    });
   }
-  changeLevel(level) {
-    this.setState({ level });
+  const { colors, paletteName, emoji } = generatePalette(findPalette());
+  const colorBoxes = colors[level].map((color) => (
+    <ColorBox background={color[format]} name={color.name} key={color.id} />
+  ));
+  const changeLevel = (level) => {
+    setLevel(level)
   }
-  changeFormat(val) {
-    this.setState({ format: val });
+  const changeFormat = (val) => {
+    setFormat(val)
   }
-  render() {
-    const { colors, paletteName, emoji } = this.props.palette;
-    const { level, format } = this.state;
-    const colorBoxes = colors[level].map((color) => (
-      <ColorBox background={color[format]} name={color.name} key={color.id} />
-    ));
+  // const render() {
+    // const { level, format } = this.state;
     return (
       <div className="Palette">
         <Navbar
           level={level}
-          changeLevel={this.changeLevel}
-          handleChange={this.changeFormat}
+          changeLevel={changeLevel}
+          handleChange={changeFormat}
         />
 
         <div className="Palette-colors">{colorBoxes}</div>
@@ -38,5 +54,4 @@ class Palette extends Component {
       </div>
     );
   }
-}
 export default Palette;

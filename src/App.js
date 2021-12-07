@@ -16,15 +16,12 @@ class App extends Component {
         <Route path="/welcome" element={<h1>MainPage </h1>} />
         {/*need help change to JSX */}
         <Route
-          exact
+          // exact
           path="/palette/:id"
-          render={(routeProps) => (
+          element={
             <Palette
-              palette={generatePalette(
-                this.findPalette[routeProps.match.params.id]
-              )}
-            />
-          )}
+              />}
+          
         />
       </Routes>
       // <div>
